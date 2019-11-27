@@ -8,7 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/zp365072035/cloud-exersise
+          uri: https://github.com/zp365072035/exercise-cloud
           default-label: master
           search-paths: config
           username: 365072035@qq.com
