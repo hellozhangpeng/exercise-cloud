@@ -1,1 +1,2 @@
-name: dev
+mysql:
+  url: dev
