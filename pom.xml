@@ -21,6 +21,12 @@
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -54,5 +60,8 @@
         <module>consul-producer</module>
         <module>config-server</module>
         <module>config-client</module>
+        <module>consul-customer</module>
+        <module>infrastructure</module>
+        <module>admin-ant</module>
     </modules>
 </project>
