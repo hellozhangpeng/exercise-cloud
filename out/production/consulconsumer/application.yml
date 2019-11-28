@@ -1,0 +1,12 @@
+
+server:
+  port: 8091
+spring:
+  application:
+    name: console-producer
+  cloud:
+    consul:
+      discovery:
+        service-name: producer-hello
+      port: 8500
+      host: localhost

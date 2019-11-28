@@ -4,9 +4,9 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "mysql")
 @Component
 @Data
-public class Config {
-    private String name;
+public class MySqlConfig {
+    private String url;
 }
