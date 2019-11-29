@@ -1,23 +1,37 @@
 package com.zp.infrastructure.shiro;
 
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.realm.Realm;
+import com.zp.infrastructure.restful.AuthInfo;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class ShiroRealm implements Realm {
+import java.util.Objects;
+
+/**
+ * @Auther: ZhangPeng
+ * @Date: 2019/11/28 17:01
+ * @Description:
+ */
+public class ShiroRealm extends AuthorizingRealm {
+
+    @Autowired
+    private IAuthAdapter authAdapter;
+
     @Override
-    public String getName() {
-        return null;
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        return new SimpleAuthorizationInfo();
     }
 
     @Override
-    public boolean supports(AuthenticationToken authenticationToken) {
-        return false;
-    }
-
-    @Override
-    public AuthenticationInfo getAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        return null;
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        AuthInfo authInfo = authAdapter.getAuth((String)authenticationToken.getPrincipal());
+        if (Objects.isNull(authInfo)) {
+            return null;
+        }
+        return new SimpleAuthenticationInfo(authInfo.getAuthIdentity(), authInfo.getPassword(), ByteSource.Util.bytes(authInfo.getSaltCode()), getName());
     }
 }
